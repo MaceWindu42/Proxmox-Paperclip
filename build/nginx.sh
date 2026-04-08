@@ -80,9 +80,10 @@ server {
     ssl_prefer_server_ciphers on;
 
     # Security headers
-    add_header X-Frame-Options DENY;
-    add_header X-Content-Type-Options nosniff;
-    add_header X-XSS-Protection "1; mode=block";
+    add_header Strict-Transport-Security "max-age=63072000; includeSubDomains" always;
+    add_header X-Frame-Options DENY always;
+    add_header X-Content-Type-Options nosniff always;
+    add_header X-XSS-Protection "1; mode=block" always;
 
     location / {
         proxy_pass         http://127.0.0.1:${PAPERCLIP_PORT};

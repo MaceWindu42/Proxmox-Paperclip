@@ -86,32 +86,27 @@ main() {
   install_pm2
   install_paperclip
 
-  # Start Paperclip with PM2 (idempotent — delete existing process first if present)
+  # Start Paperclip with PM2 (idempotent — restart existing process if present)
   msg "Configuring PM2 to manage Paperclip..."
   if pm2 describe paperclip &>/dev/null; then
     msg "Paperclip process already registered in PM2. Restarting..."
     pm2 restart paperclip
   else
-    # Use the full path to the paperclipai binary
+    # paperclipai is a Node.js CLI — PM2 auto-detects the interpreter from the shebang.
+    # Do NOT pass --interpreter bash or -- start; those flags are for non-Node scripts.
     local paperclip_bin
     paperclip_bin=$(command -v paperclipai)
-    pm2 start "${paperclip_bin}" \
-      --name paperclip \
-      --interpreter bash \
-      -- start \
-      2>/dev/null || pm2 start paperclipai --name paperclip
+    pm2 start "${paperclip_bin}" --name paperclip
   fi
 
   ok "Paperclip process started under PM2."
 
-  # Configure PM2 to start on boot
+  # Configure PM2 to start on boot.
+  # Running as root inside the container: generate the systemd unit, then reload.
   msg "Configuring PM2 startup..."
-  local pm2_startup
-  pm2_startup=$(pm2 startup systemd -u root --hp /root 2>&1 | tail -1)
-  # The startup command needs to be executed
-  if [[ "${pm2_startup}" =~ sudo ]]; then
-    eval "${pm2_startup}" 2>/dev/null || true
-  fi
+  pm2 startup systemd -u root --hp /root
+  systemctl daemon-reload
+  systemctl enable pm2-root 2>/dev/null || true  # unit name may vary; pm2 startup handles it
   pm2 save
 
   ok "PM2 startup configured."

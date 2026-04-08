@@ -322,11 +322,11 @@ run_install_in_container() {
   pct exec "${CT_ID}" -- chmod +x /opt/paperclip-install/build/*.sh
 
   msg "Running install.sh inside container..."
-  pct exec "${CT_ID}" -- bash -c "
-    export OLLAMA_MODEL='${OLLAMA_MODEL}'
-    export ENABLE_NGINX='${ENABLE_NGINX}'
+  # Pass env vars via 'env' to avoid shell injection from user-supplied values
+  # (e.g. a custom model name containing single quotes or shell metacharacters)
+  pct exec "${CT_ID}" -- \
+    env "OLLAMA_MODEL=${OLLAMA_MODEL}" "ENABLE_NGINX=${ENABLE_NGINX}" \
     bash /opt/paperclip-install/build/install.sh
-  "
   ok "Install completed inside container."
 }
 
