@@ -1,13 +1,13 @@
 #!/usr/bin/env bash
 # ct/paperclip.sh — Proxmox LXC installer for Paperclip
-# Usage: bash -c "$(wget -qLO - https://raw.githubusercontent.com/${GITHUB_ORG}/proxmox-paperclip/main/ct/paperclip.sh)"
+# Usage: bash -c "$(wget -qLO - https://raw.githubusercontent.com/MaceWindu42/Proxmox-Paperclip/main/ct/paperclip.sh)"
 set -euo pipefail
 
 # ---------------------------------------------------------------------------
 # Configuration — override with env vars for non-interactive mode
 # ---------------------------------------------------------------------------
-GITHUB_ORG="${GITHUB_ORG:-proxmox-paperclip}"
-GITHUB_REPO="${GITHUB_REPO:-proxmox-paperclip}"
+GITHUB_ORG="${GITHUB_ORG:-MaceWindu42}"
+GITHUB_REPO="${GITHUB_REPO:-Proxmox-Paperclip}"
 SCRIPT_BASE="https://raw.githubusercontent.com/${GITHUB_ORG}/${GITHUB_REPO}/main"
 
 CT_ID="${PAPERCLIP_CT_ID:-}"

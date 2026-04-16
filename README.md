@@ -7,7 +7,7 @@ One-command installer for [Paperclip](https://paperclip.ing) on Proxmox VE — c
 Run the following command on your **Proxmox VE host** (not inside a container):
 
 ```bash
-bash -c "$(wget -qLO - https://raw.githubusercontent.com/proxmox-paperclip/proxmox-paperclip/main/ct/paperclip.sh)"
+bash -c "$(wget -qLO - https://raw.githubusercontent.com/MaceWindu42/Proxmox-Paperclip/main/ct/paperclip.sh)"
 ```
 
 The installer will guide you through an interactive setup with sensible defaults.
@@ -53,7 +53,7 @@ export PAPERCLIP_MODEL=llama3.2
 export PAPERCLIP_PASSWORD=your-secure-password
 export PAPERCLIP_NGINX=N
 
-bash -c "$(wget -qLO - https://raw.githubusercontent.com/proxmox-paperclip/proxmox-paperclip/main/ct/paperclip.sh)"
+bash -c "$(wget -qLO - https://raw.githubusercontent.com/MaceWindu42/Proxmox-Paperclip/main/ct/paperclip.sh)"
 ```
 
 > **Security:** Never commit passwords to version control. Use environment variables or a secrets manager.
