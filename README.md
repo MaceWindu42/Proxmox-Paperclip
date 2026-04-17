@@ -25,33 +25,35 @@ The installer will guide you through an interactive setup with sensible defaults
 
 | Resource | Default | Override Env Var |
 |---|---|---|
-| Container ID | Auto-detected (next available) | `PAPERCLIP_CT_ID` |
-| Hostname | `paperclip` | `PAPERCLIP_HOSTNAME` |
-| CPU cores | 4 | `PAPERCLIP_CORES` |
-| RAM | 8192 MB | `PAPERCLIP_MEMORY` |
-| Disk | 40 GB | `PAPERCLIP_DISK` |
-| Network | DHCP | `PAPERCLIP_NET` (`dhcp` or `static`) |
-| Static IP | — | `PAPERCLIP_IP` (CIDR, e.g. `192.168.1.100/24`) |
-| Gateway | — | `PAPERCLIP_GW` |
-| Ollama model | `llama3.2` | `PAPERCLIP_MODEL` |
-| HTTPS/nginx | No | `PAPERCLIP_NGINX` (`Y` or `N`) |
-| Container storage | `local-lvm` | `PAPERCLIP_CT_STORAGE` |
-| Template storage | `local` | `PAPERCLIP_TEMPLATE_STORAGE` |
+| Container ID | Auto-detected (next available) | `PXMX_CT_ID` |
+| Hostname | `paperclip` | `PXMX_HOSTNAME` |
+| CPU cores | 4 | `PXMX_CORES` |
+| RAM | 8192 MB | `PXMX_MEMORY` |
+| Disk | 40 GB | `PXMX_DISK` |
+| Network | DHCP | `PXMX_NET` (`dhcp` or `static`) |
+| Static IP | — | `PXMX_IP` (CIDR, e.g. `192.168.1.100/24`) |
+| Gateway | — | `PXMX_GW` |
+| Ollama model | `llama3.2` | `PXMX_MODEL` |
+| HTTPS/nginx | No | `PXMX_NGINX` (`Y` or `N`) |
+| Container storage | `local-lvm` | `PXMX_CT_STORAGE` |
+| Template storage | `local` | `PXMX_TEMPLATE_STORAGE` |
+
+> **Note:** The prefix `PXMX_` is used (not `PAPERCLIP_`) to avoid collisions with the Paperclip runtime environment when running the installer on a host that already runs Paperclip.
 
 ## Non-Interactive (Automated) Mode
 
-Set environment variables to skip all prompts:
+Set environment variables to pre-fill all prompts (whiptail dialogs will still appear with these as defaults, allowing you to review before proceeding):
 
 ```bash
-export PAPERCLIP_CT_ID=200
-export PAPERCLIP_HOSTNAME=paperclip
-export PAPERCLIP_CORES=4
-export PAPERCLIP_MEMORY=8192
-export PAPERCLIP_DISK=40
-export PAPERCLIP_NET=dhcp
-export PAPERCLIP_MODEL=llama3.2
-export PAPERCLIP_PASSWORD=your-secure-password
-export PAPERCLIP_NGINX=N
+export PXMX_CT_ID=200
+export PXMX_HOSTNAME=paperclip
+export PXMX_CORES=4
+export PXMX_MEMORY=8192
+export PXMX_DISK=40
+export PXMX_NET=dhcp
+export PXMX_MODEL=llama3.2
+export PXMX_PASSWORD=your-secure-password
+export PXMX_NGINX=N
 
 bash -c "$(wget -qLO - https://raw.githubusercontent.com/MaceWindu42/Proxmox-Paperclip/main/ct/paperclip.sh)"
 ```
