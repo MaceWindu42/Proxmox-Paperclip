@@ -131,12 +131,16 @@ ensure_template() {
   template_name="$(find_ubuntu_template "${UBUNTU_TEMPLATE_STORAGE}")"
   if [[ -n "${template_name}" ]]; then
     ok "Ubuntu template found: ${template_name}"
+    # find_ubuntu_template returns the full storage:vztmpl/name path from pveam list
+    TEMPLATE_PATH="${template_name}"
   else
     msg "No Ubuntu template cached — downloading..."
-    template_name="$(download_ubuntu_template "${UBUNTU_TEMPLATE_STORAGE}")"
-    ok "Template downloaded: ${template_name}"
+    local dl_name
+    dl_name="$(download_ubuntu_template "${UBUNTU_TEMPLATE_STORAGE}")"
+    ok "Template downloaded: ${dl_name}"
+    # download_ubuntu_template returns just the filename; prepend storage prefix
+    TEMPLATE_PATH="${UBUNTU_TEMPLATE_STORAGE}:vztmpl/${dl_name}"
   fi
-  TEMPLATE_PATH="${UBUNTU_TEMPLATE_STORAGE}:vztmpl/${template_name}"
 }
 
 # ---------------------------------------------------------------------------
